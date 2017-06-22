@@ -17,6 +17,15 @@ public class GameController : MonoBehaviour {
 		gameController = this;
 	}
 
+	/// <summary>
+	/// Transitions the game state.
+	/// </summary>
+	/// <param name="state">State.</param>
+	public void TransitionToState(EGameState state)
+	{
+		uiManager.TransitionToState (state);
+	}
+
 
 
 
