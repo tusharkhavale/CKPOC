@@ -12,12 +12,17 @@ public class GlobeScreen : MonoBehaviour {
 
 	private InputField inputCountry;
 	private GameObject countryScrollView;
+	private Transform grid;
 	private GameObject character;
+	private Object countryItem;
+	List <GameObject> CountryItemList = new List<GameObject>(); 
 
 
 	void Start()
 	{
 		LoadUIRefrences ();
+		AssignButtonDelegates ();
+		LoadCountryItem ();
 	}
 
 	/// <summary>
@@ -34,6 +39,8 @@ public class GlobeScreen : MonoBehaviour {
 		inputCountry = transform.Find ("CountryInput").GetComponent<InputField> ();
 		countryScrollView = transform.Find ("CountryScrollView").gameObject;
 		character = transform.Find ("Character").gameObject;
+
+		grid = countryScrollView.transform.Find ("Viewport").Find("Content");
 	}
 
 	private void AssignButtonDelegates()
@@ -92,6 +99,27 @@ public class GlobeScreen : MonoBehaviour {
 		inputCountry.gameObject.SetActive (false);
 		countryScrollView.gameObject.SetActive (false);
 	}
+
+	/// <summary>
+	/// Loads all Countries items to the scroll list.
+	/// </summary>
+	private void LoadCountryItem()
+	{
+		countryItem = Resources.Load<Object> ("Prefabs/ScrollViewITems/CountryItem");
+
+		Country[] countryArray = System.Enum.GetValues (typeof(Country)) as Country[];
+		for (int i = 0; i < countryArray.Length; i++) 
+		{
+			GameObject go = Instantiate (countryItem) as GameObject;
+			go.name = countryArray [i].ToString();
+			(go.transform.GetComponent<Text> ()).text = go.name;
+			go.transform.SetParent (grid);
+			go.transform.localScale = Vector3.one;
+			CountryItemList.Add (go);	
+		}
+	}
+
+
 
 
 
