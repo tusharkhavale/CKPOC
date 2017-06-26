@@ -9,13 +9,20 @@ public class GlobeScreen : MonoBehaviour {
 	private Button btnCountries;
 	private Button btnSearch;
 	private Button btnFav;
+	private Button btnPopupOk;
+	private Button btnPopupBack;
+	public GameObject globe;
 
 	private InputField inputCountry;
 	private GameObject countryScrollView;
 	private Transform grid;
 	private GameObject character;
+	private GameObject popup;
 	private Object countryItem;
 	List <GameObject> CountryItemList = new List<GameObject>(); 
+	private bool toggleCountrySearch;
+	private static Vector3 rightPosition = new Vector3 (0.4f, 1.0f, -8.0f);
+	private static Vector3 defaultPosition = new Vector3 (0.0f, 1.0f, -8.0f);
 
 
 	void Start()
@@ -39,7 +46,9 @@ public class GlobeScreen : MonoBehaviour {
 		inputCountry = transform.Find ("CountryInput").GetComponent<InputField> ();
 		countryScrollView = transform.Find ("CountryScrollView").gameObject;
 		character = transform.Find ("Character").gameObject;
-
+		popup = transform.Find ("Popup").gameObject;
+		btnPopupOk = popup.transform.Find ("Ok").GetComponent<Button> ();
+		btnPopupBack = popup.transform.Find ("Back").GetComponent<Button> ();
 		grid = countryScrollView.transform.Find ("Viewport").Find("Content");
 	}
 
@@ -50,6 +59,8 @@ public class GlobeScreen : MonoBehaviour {
 		btnFav.onClick.AddListener (this.OnClickFav);
 		btnSearch.onClick.AddListener (this.OnClickSearch);
 		inputCountry.onValueChanged.AddListener (this.OnInputChanged);
+		btnPopupOk.onClick.AddListener (this.OnClickPopupOk);
+		btnPopupBack.onClick.AddListener (this.OnClickPopupBack);
 	}
 
 
@@ -67,7 +78,12 @@ public class GlobeScreen : MonoBehaviour {
 
 	public void OnClickCountries()
 	{
-		ShowCountriesList ();
+		if (toggleCountrySearch)
+			HideCountriesList ();
+		else 
+			ShowCountriesList ();
+
+		toggleCountrySearch = !toggleCountrySearch;
 	}
 
 	public void OnClickFav()
@@ -77,7 +93,27 @@ public class GlobeScreen : MonoBehaviour {
 
 	public void OnInputChanged(string value)
 	{
-		Debug.Log ("" + value);	
+		foreach (GameObject go in CountryItemList) 
+		{
+			if (string.IsNullOrEmpty (value))
+				go.SetActive (true);
+			else if(!go.name.Contains(value))
+				go.SetActive (false);
+			else 
+				go.SetActive (true);
+		}
+	}
+
+	public void OnClickPopupOk()
+	{
+		HidePopup ();
+		GameController.gameController.TransitionToState (EGameState.Info);
+	}
+
+	public void OnClickPopupBack()
+	{
+		HidePopup ();
+		ShowCountriesList ();
 	}
 
 	#endregion
@@ -89,6 +125,8 @@ public class GlobeScreen : MonoBehaviour {
 	{
 		inputCountry.gameObject.SetActive (true);
 		countryScrollView.gameObject.SetActive (true);
+		StopAllCoroutines ();
+		MoveGlobe(rightPosition);
 	}
 
 	/// <summary>
@@ -98,6 +136,8 @@ public class GlobeScreen : MonoBehaviour {
 	{
 		inputCountry.gameObject.SetActive (false);
 		countryScrollView.gameObject.SetActive (false);
+		StopAllCoroutines ();
+		MoveGlobe(defaultPosition);
 	}
 
 	/// <summary>
@@ -115,12 +155,61 @@ public class GlobeScreen : MonoBehaviour {
 			(go.transform.GetComponent<Text> ()).text = go.name;
 			go.transform.SetParent (grid);
 			go.transform.localScale = Vector3.one;
+			go.transform.GetComponent<CountryItem> ().globeScreen = this;
 			CountryItemList.Add (go);	
 		}
 	}
 
+	/// <summary>
+	/// Show country selection pop-up.
+	/// </summary>
+	/// <param name="country">Country.</param>
+	public void CountrySelected(Country country)
+	{
+		HideCountriesList ();
+		ShowPopup ();
+		(popup.transform.GetComponentInChildren<Text> ()).text = "Proceed with " + country.ToString (); 
+	}
 
+	/// <summary>
+	/// Enable the Popup.
+	/// </summary>
+	private void ShowPopup()
+	{
+		popup.SetActive (true);
+		StopAllCoroutines ();
+		MoveGlobe(rightPosition);
+	}
 
+	/// <summary>
+	/// Disable the Popup .
+	/// </summary>
+	private void HidePopup()
+	{
+		popup.SetActive (false);
+		StopAllCoroutines ();
+		MoveGlobe(defaultPosition);
+	}
+
+	private void MoveGlobe(Vector3 destination)
+	{
+		StopAllCoroutines ();
+		StartCoroutine (LerpGlobe (destination));
+	}
+
+	/// <summary>
+	/// Translates the globe to new destination.
+	/// </summary>
+	/// <returns>The globe.</returns>
+	/// <param name="destination">Destination.</param>
+	IEnumerator LerpGlobe(Vector3 destination)
+	{
+		while (globe.transform.position.x != destination.x) 
+		{
+			globe.transform.position = Vector3.Lerp (globe.transform.position, destination, 0.1f);
+			yield return null;
+		}
+	}
 
 
 }

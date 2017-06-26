@@ -25,8 +25,4 @@ public class GameController : MonoBehaviour {
 	{
 		uiManager.TransitionToState (state);
 	}
-
-
-
-
 }

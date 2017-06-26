@@ -16,12 +16,16 @@ public enum EGameState
 
 public class UIManager : MonoBehaviour {
 
+
+	// UI Screens
 	private GameObject titleScreen;
 	private GameObject globeScreen;
 	private GameObject infoScreen;
 	private GameObject selectRecipeScreen;
 	private GameObject showRecipeScreen;
 	private GameObject recipeStepsScreen;
+	public GameObject globe;
+
 	public EGameState currState;
 
 	/// <summary>
@@ -71,6 +75,7 @@ public class UIManager : MonoBehaviour {
 				break;
 			case EGameState.Globe:
 				globeScreen.SetActive (true);
+				globe.SetActive (true);
 				break;
 			case EGameState.Info:
 				infoScreen.SetActive (true);
@@ -100,6 +105,7 @@ public class UIManager : MonoBehaviour {
 				break;
 			case EGameState.Globe:
 				globeScreen.SetActive (false);
+				globe.SetActive (false);
 				break;
 			case EGameState.Info:
 				infoScreen.SetActive (false);
@@ -125,6 +131,7 @@ public class UIManager : MonoBehaviour {
 
 	public void OnClickDone()
 	{
+		
 	}
 
 	#endregion

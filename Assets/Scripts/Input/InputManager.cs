@@ -86,19 +86,19 @@ public class InputManager : MonoBehaviour {
 	void Update()
 	{
 		// Cheat after crash
-		if (Input.GetKey (KeyCode.W) && Input.GetKey (KeyCode.D) && Input.GetKey (KeyCode.A))
-	    	cheatEvent ();
-
-		if (Input.GetKey(KeyCode.W) || Input.GetKey (KeyCode.UpArrow)) 			// Up
-			upEvent ();
-		else if (Input.GetKey (KeyCode.S) || Input.GetKey(KeyCode.DownArrow))		// Down	
-			downEvent ();
-
-
-		if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))			// left
-			leftEvent ();
-		else if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))		// Right
-			rightEvent ();
+//		if (Input.GetKey (KeyCode.W) && Input.GetKey (KeyCode.D) && Input.GetKey (KeyCode.A))
+//	    	cheatEvent ();
+//
+//		if (Input.GetKey(KeyCode.W) || Input.GetKey (KeyCode.UpArrow)) 			// Up
+//			upEvent ();
+//		else if (Input.GetKey (KeyCode.S) || Input.GetKey(KeyCode.DownArrow))		// Down	
+//			downEvent ();
+//
+//
+//		if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))			// left
+//			leftEvent ();
+//		else if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))		// Right
+//			rightEvent ();
 	}
 
 }
