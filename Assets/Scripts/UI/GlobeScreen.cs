@@ -32,6 +32,20 @@ public class GlobeScreen : MonoBehaviour {
 		LoadCountryItem ();
 	}
 
+	void OnEnable()
+	{
+		ResetVariables ();
+	}
+
+	/// <summary>
+	/// Resets class variables.
+	/// </summary>
+	private void ResetVariables()
+	{
+		toggleCountrySearch = false;
+		globe.transform.position = defaultPosition;
+	}
+
 	/// <summary>
 	/// Loads the user interface 
 	/// refrences from the screen.
@@ -73,6 +87,7 @@ public class GlobeScreen : MonoBehaviour {
 
 	public void OnClickSearch()
 	{
+		GameController.gameController.CurrCountry = Country.NONE;
 		GameController.gameController.TransitionToState (EGameState.SelectRecipe);
 	}
 
@@ -112,6 +127,7 @@ public class GlobeScreen : MonoBehaviour {
 
 	public void OnClickPopupBack()
 	{
+		GameController.gameController.CurrCountry = Country.NONE;
 		HidePopup ();
 		ShowCountriesList ();
 	}
@@ -166,6 +182,7 @@ public class GlobeScreen : MonoBehaviour {
 	/// <param name="country">Country.</param>
 	public void CountrySelected(Country country)
 	{
+		GameController.gameController.CurrCountry = country;
 		HideCountriesList ();
 		ShowPopup ();
 		(popup.transform.GetComponentInChildren<Text> ()).text = "Proceed with " + country.ToString (); 

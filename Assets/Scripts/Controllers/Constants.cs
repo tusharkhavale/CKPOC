@@ -27,7 +27,7 @@ public enum Country
 	Sweden,Switzerland,Syrian_Arab_Republic,Taiwan,Province_Of_China,Tajikistan,Tanzania_United_Republic_Of,Thailand,Togo,Tokelau,Tonga,
 	Trinidad_And_Tobago,Tunisia,Turkey,Turkmenistan,Turks_And_Caicos_Islands,Tuvalu,Uganda,Ukraine,United_Arab_Emirates,United_Kingdom,United_States,
 	United_States_Minor_Outlying_Islands,Uruguay,Uzbekistan,Vanuatu,Venezuela,Viet_Nam,Virgin_Islands_British,Virgin_Islands_U_s,
-	Wallis_And_Futuna,Western_Sahara,Yemen,Zambia,Zimbabwe
+	Wallis_And_Futuna,Western_Sahara,Yemen,Zambia,Zimbabwe,NONE
 }
 
 public class Constants : MonoBehaviour {
