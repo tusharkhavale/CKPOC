@@ -31,7 +31,8 @@ public class SelectRecipeScreen : MonoBehaviour {
 	{
 		ResetVariables ();	
 		lstRecipes = GameController.gameController.GetRecipes ();
-		LoadRecipes (lstRecipes);
+		if(lstRecipes != null)
+			LoadRecipes (lstRecipes);
 	}
 
 	/// <summary>
@@ -77,7 +78,8 @@ public class SelectRecipeScreen : MonoBehaviour {
 	/// <param name="list">List.</param>
 	private void LoadRecipes(List<Recipe> list)
 	{
-		recipeItem = Resources.Load<Object> ("Prefabs/ScrollViewItems/RecipeItem");
+		if(recipeItem == null)
+			recipeItem = Resources.Load<Object> ("Prefabs/ScrollViewItems/RecipeItem");
 
 		foreach (Recipe recipe in list) 
 		{
