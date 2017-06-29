@@ -17,6 +17,8 @@ public class InputHandler : MonoBehaviour {
 
 	void Update()
 	{
+
+		#if UNITY_WEBGL || UNITY_WEBGL_API
 		// Mouse wheel scroll 
 		if (Input.GetAxis ("Mouse ScrollWheel") != 0)
 			OnMouseScroll (Input.GetAxis ("Mouse ScrollWheel"));
@@ -38,6 +40,16 @@ public class InputHandler : MonoBehaviour {
 			transform.RotateAround (Vector3.up, -x);
 			transform.RotateAround (Vector3.right, y);
 		}
+		#else
+		if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Moved)
+		{
+			float x = Input.GetAxis ("Mouse X") * m_rotateFactor;
+			float y = Input.GetAxis ("Mouse Y") * m_rotateFactor;
+
+			transform.RotateAround (Vector3.up, -x);
+			transform.RotateAround (Vector3.right, y);
+		}
+		#endif
 	}
 
 	/// <summary>

@@ -111,11 +111,12 @@ public class GlobeScreen : MonoBehaviour {
 
 	public void OnInputChanged(string value)
 	{
+		value = value.ToLower();
 		foreach (GameObject go in CountryItemList) 
 		{
 			if (string.IsNullOrEmpty (value))
 				go.SetActive (true);
-			else if(!go.name.Contains(value))
+			else if(!go.name.ToLower().Contains(value))
 				go.SetActive (false);
 			else 
 				go.SetActive (true);
