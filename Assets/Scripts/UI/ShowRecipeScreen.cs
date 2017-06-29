@@ -89,8 +89,8 @@ public class ShowRecipeScreen : MonoBehaviour {
 		Recipe currRecipe = GameController.gameController.CurrRecipe;
 
 		displayImage.texture = currRecipe.texture;
-
-		ingredientItem = Resources.Load<Object> ("Prefabs/ScrollViewItems/IngredientItem");
+		if(ingredientItem == null)
+			ingredientItem = Resources.Load<Object> ("Prefabs/ScrollViewItems/IngredientItem");
 
 		for (int i = 0; i < currRecipe.ingredients.Length; i++) 
 		{
@@ -108,7 +108,8 @@ public class ShowRecipeScreen : MonoBehaviour {
 	private void LoadTools()
 	{
 		Recipe currRecipe = GameController.gameController.CurrRecipe;
-		toolItem = Resources.Load<Object> ("Prefabs/ScrollViewItems/ToolItem");
+		if(toolItem == null)
+			toolItem = Resources.Load<Object> ("Prefabs/ScrollViewItems/ToolItem");
 
 		for (int i = 0; i < currRecipe.tools.Length; i++) 
 		{

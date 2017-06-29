@@ -3,18 +3,32 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class InputHandler : MonoBehaviour {
-	public float m_rotateFactor = 0.1f;
+
+	private float m_rotateFactor = 0.1f;
 	private bool mouseDown;
+
+	/// <summary>
+	/// Reset variables on Enable.
+	/// </summary>
+	void OnEnable()
+	{
+		mouseDown = false;
+	}
+
 	void Update()
 	{
-		// Mouse wheel scroll
+		// Mouse wheel scroll 
 		if (Input.GetAxis ("Mouse ScrollWheel") != 0)
 			OnMouseScroll (Input.GetAxis ("Mouse ScrollWheel"));
 
+		// Touch started trigger
 		if (Input.GetMouseButtonDown (0))
 			mouseDown = true;
+
+		// Touch ended trigger
 		if (Input.GetMouseButtonUp (0))
 			mouseDown = false;
+
 
 		if(mouseDown)
 		{
@@ -26,6 +40,10 @@ public class InputHandler : MonoBehaviour {
 		}
 	}
 
+	/// <summary>
+	/// Move the canera close to the globe to get zoom effect.
+	/// </summary>
+	/// <param name="value">Value.</param>
 	void OnMouseScroll(float value)
 	{
 		float cameraZ = Camera.main.transform.position.z + value;

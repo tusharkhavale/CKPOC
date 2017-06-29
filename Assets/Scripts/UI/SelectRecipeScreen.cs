@@ -30,9 +30,7 @@ public class SelectRecipeScreen : MonoBehaviour {
 	void OnEnable()
 	{
 		ResetVariables ();	
-		lstRecipes = GameController.gameController.GetRecipes ();
-		if(lstRecipes != null)
-			LoadRecipes (lstRecipes);
+		LoadRecipes ();
 	}
 
 	/// <summary>
@@ -46,7 +44,6 @@ public class SelectRecipeScreen : MonoBehaviour {
 			Destroy (go);
 		}
 		lstRecipesItems.Clear();
-		lstRecipes.Clear();	
 	}
 
 	/// <summary>
@@ -73,15 +70,20 @@ public class SelectRecipeScreen : MonoBehaviour {
 	}
 
 	/// <summary>
-	/// Instantiates and adds recipe items to the list.
+	/// Adds the recipes items to the scroll list.
 	/// </summary>
-	/// <param name="list">List.</param>
-	private void LoadRecipes(List<Recipe> list)
+	private void LoadRecipes()
 	{
+
+		lstRecipes = GameController.gameController.GetRecipes ();
+
+		if (lstRecipes == null)
+			return;
+
 		if(recipeItem == null)
 			recipeItem = Resources.Load<Object> ("Prefabs/ScrollViewItems/RecipeItem");
 
-		foreach (Recipe recipe in list) 
+		foreach (Recipe recipe in lstRecipes) 
 		{
 			GameObject go = Instantiate (recipeItem) as GameObject;
 			go.name = recipe.name;
