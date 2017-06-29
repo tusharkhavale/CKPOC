@@ -5,9 +5,6 @@ using UnityEngine.UI;
 
 public class CountryItem : MonoBehaviour {
 
-	[HideInInspector]
-	public GlobeScreen globeScreen;
-
 	/// <summary>
 	/// Assign button delegate on Start.
 	/// </summary>
@@ -20,7 +17,7 @@ public class CountryItem : MonoBehaviour {
 	/// </summary>
 	void OnClick()
 	{
-		globeScreen.CountrySelected ((Country) System.Enum.Parse (typeof (Country), name));
+		GameController.gameController.CountrySelected ((Country) System.Enum.Parse (typeof (Country), name));
 	}
 
 }

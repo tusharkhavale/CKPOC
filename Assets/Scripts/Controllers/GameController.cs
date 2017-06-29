@@ -55,6 +55,16 @@ public class GameController : MonoBehaviour {
 	}
 
 	/// <summary>
+	/// Show country selected popup.
+	/// </summary>
+	/// <param name="country">Country.</param>
+	public void CountrySelected(Country country)
+	{
+		uiManager.CountrySelected (country);
+	}
+
+
+	/// <summary>
 	/// Toggles the audio output.
 	/// </summary>
 	public void ToggleAudioOutput()

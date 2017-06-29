@@ -63,6 +63,15 @@ public class UIManager : MonoBehaviour {
 	}
 
 	/// <summary>
+	/// Shows country selected popup on Globe screen.
+	/// </summary>
+	/// <param name="country">Country.</param>
+	public void CountrySelected(Country country)
+	{
+		globeScreen.transform.GetComponent<GlobeScreen> ().CountrySelected (country);
+	}
+
+	/// <summary>
 	/// Enables the UI screen.
 	/// </summary>
 	/// <param name="state">State.</param>
@@ -122,17 +131,5 @@ public class UIManager : MonoBehaviour {
 		}
 	}
 
-	#region Click callback functions
 
-	public void OnClickStart()
-	{
-
-	}
-
-	public void OnClickDone()
-	{
-		
-	}
-
-	#endregion
 }

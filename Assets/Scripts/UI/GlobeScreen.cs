@@ -66,6 +66,9 @@ public class GlobeScreen : MonoBehaviour {
 		grid = countryScrollView.transform.Find ("Viewport").Find("Content");
 	}
 
+	/// <summary>
+	/// Assigns the button delegates.
+	/// </summary>
 	private void AssignButtonDelegates()
 	{
 		btnSettings.onClick.AddListener (this.OnClickSettings);
@@ -129,7 +132,6 @@ public class GlobeScreen : MonoBehaviour {
 	{
 		GameController.gameController.CurrCountry = Country.NONE;
 		HidePopup ();
-		ShowCountriesList ();
 	}
 
 	#endregion
@@ -171,7 +173,6 @@ public class GlobeScreen : MonoBehaviour {
 			(go.transform.GetComponent<Text> ()).text = go.name;
 			go.transform.SetParent (grid);
 			go.transform.localScale = Vector3.one;
-			go.transform.GetComponent<CountryItem> ().globeScreen = this;
 			CountryItemList.Add (go);	
 		}
 	}
@@ -194,8 +195,6 @@ public class GlobeScreen : MonoBehaviour {
 	private void ShowPopup()
 	{
 		popup.SetActive (true);
-		StopAllCoroutines ();
-		MoveGlobe(rightPosition);
 	}
 
 	/// <summary>
@@ -204,8 +203,6 @@ public class GlobeScreen : MonoBehaviour {
 	private void HidePopup()
 	{
 		popup.SetActive (false);
-		StopAllCoroutines ();
-		MoveGlobe(defaultPosition);
 	}
 
 	private void MoveGlobe(Vector3 destination)
