@@ -100,8 +100,8 @@ public class InputHandler : MonoBehaviour {
 	void Zoom(float magnitude)
 	{
 		transform.localScale = new Vector3 (transform.localScale.x + magnitude*m_scaleFactor, 
-		transform.localScale.y + magnitude*m_scaleFactor,
-		transform.localScale.z + magnitude*m_scaleFactor);
+		transform.localScale.y - magnitude*m_scaleFactor,
+		transform.localScale.z - magnitude*m_scaleFactor);
 	}
 
 #endif
