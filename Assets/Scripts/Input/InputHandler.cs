@@ -6,7 +6,7 @@ public class InputHandler : MonoBehaviour {
 
 	private float m_rotateFactor = 0.1f;
 	private bool mouseDown;
-	public float m_scaleFactor = 0.01f;
+	public float m_scaleFactor = 0.005f;
 	public float perspectiveZoomSpeed = 0.5f;        // The rate of change of the field of view in perspective mode.
 	public float orthoZoomSpeed = 0.5f;        // The rate of change of the orthographic size in orthographic mode.
 
